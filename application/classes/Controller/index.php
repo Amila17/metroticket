@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Index extends Controller_Twig
+class Controller_Index extends Controller_Kotwig
 {
 	private $session;
 	
@@ -13,7 +13,7 @@ class Controller_Index extends Controller_Twig
 	
 	public function action_index()
 	{
-		$this->context->pageTitle = 'Home';
+		$this->template->pageTitle = 'Home';
 /* 
 		$modelvar = new Model_Index();
 		$modelvar->addIndex(); */
