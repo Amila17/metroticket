@@ -12,11 +12,18 @@ class Controller_Index extends Controller_Kotwig
 	}
 	
 	public function action_index()
-	{
-		$this->template->pageTitle = 'Home';
-/* 
+	{/* 
 		$modelvar = new Model_Index();
-		$modelvar->addIndex(); */
+		$modelvar->addIndex(); Java . == Php ->*/
+	}
+	
+	public function action_contact()
+	{
+	}
+	
+	public function action_aboutUs()
+	{
+		
 	}
 
 } // End Welcome

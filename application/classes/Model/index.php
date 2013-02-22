@@ -1,11 +1,13 @@
 <?php
 class Model_Index extends RedBean
 {
-	public function addIndex()
+	public function addIndex($name, $age, $dOB)
 	{
-		$post = R::dispense('post');
-		$post->text = 'Hello World';
+		$person = R::dispense('person');
+		$person->name = $name;
+		$person->age = $age;
+		$person->dob = $dOB;
 		
-		$id = R::store($post);
+		$id = R::store($person);
 	}
 }

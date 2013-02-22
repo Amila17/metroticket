@@ -1,7 +1,7 @@
 <?php
 
-/* Index/index.twig */
-class __TwigTemplate_571b72dfe7cf498f1d66b3fd9e970256 extends Twig_Template
+/* Index/aboutUs.twig */
+class __TwigTemplate_e6177295a6118a04f646ee94fff0773a extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -28,18 +28,20 @@ class __TwigTemplate_571b72dfe7cf498f1d66b3fd9e970256 extends Twig_Template
     public function block_content($context, array $blocks = array())
     {
         // line 4
-        echo "<h3> ";
-        echo twig_escape_filter($this->env, (isset($context["pageTitle"]) ? $context["pageTitle"] : null), "html", null, true);
-        echo " </h3>
-<body>Welcome to metroticket website. This is the best website to purchase tickets.</body>
-<br>
-<br>
+        echo "<h3>About Us</h3>
+
+<body>
+We are a partner of the Metro Line that allows customers to purchase metro tickets online for your convinience.<br>
+
+
+</body>
+
 ";
     }
 
     public function getTemplateName()
     {
-        return "Index/index.twig";
+        return "Index/aboutUs.twig";
     }
 
     public function isTraitable()

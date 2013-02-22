@@ -11,7 +11,6 @@ class __TwigTemplate_b4d2d4ba0f3f8787fb52dc2dba4019b7 extends Twig_Template
 
         $this->blocks = array(
             'head' => array($this, 'block_head'),
-            'title' => array($this, 'block_title'),
             'style' => array($this, 'block_style'),
             'content' => array($this, 'block_content'),
             'footer' => array($this, 'block_footer'),
@@ -47,8 +46,8 @@ class __TwigTemplate_b4d2d4ba0f3f8787fb52dc2dba4019b7 extends Twig_Template
           <div class=\"nav-collapse collapse\">
             <ul class=\"nav\">
               <li class=\"active\"><a href=\"/metroticket\">Home</a></li>
-              <li><a href=\"#about\">About</a></li>
-              <li><a href=\"#contact\">Contact</a></li>
+              <li><a href=\"index/aboutUs\">About</a></li>
+              <li><a href=\"/contact\">Contact</a></li>
               <li><a href=\"auth/index\">Login</a></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -145,10 +144,7 @@ class __TwigTemplate_b4d2d4ba0f3f8787fb52dc2dba4019b7 extends Twig_Template
     {
         // line 6
         echo "    <meta charset=\"utf-8\">
-    <title>";
-        // line 7
-        $this->displayBlock('title', $context, $blocks);
-        echo "</title>
+    <title>MetroTicket</title>
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
     <meta name=\"description\" content=\"\">
     <meta name=\"author\" content=\"\">
@@ -198,11 +194,6 @@ class __TwigTemplate_b4d2d4ba0f3f8787fb52dc2dba4019b7 extends Twig_Template
   \t";
     }
 
-    // line 7
-    public function block_title($context, array $blocks = array())
-    {
-    }
-
     // line 15
     public function block_style($context, array $blocks = array())
     {
@@ -238,6 +229,6 @@ class __TwigTemplate_b4d2d4ba0f3f8787fb52dc2dba4019b7 extends Twig_Template
 
     public function getDebugInfo()
     {
-        return array (  225 => 67,  222 => 66,  217 => 62,  210 => 16,  207 => 15,  202 => 7,  196 => 33,  192 => 32,  188 => 31,  184 => 30,  180 => 29,  173 => 25,  166 => 20,  164 => 15,  159 => 13,  150 => 7,  147 => 6,  144 => 5,  135 => 94,  131 => 93,  127 => 92,  123 => 91,  119 => 90,  115 => 89,  111 => 88,  107 => 87,  103 => 86,  99 => 85,  95 => 84,  91 => 83,  87 => 82,  72 => 69,  70 => 66,  63 => 62,  34 => 35,  31 => 5,  29 => 4,  24 => 1,);
+        return array (  216 => 67,  213 => 66,  208 => 62,  201 => 16,  198 => 15,  192 => 33,  188 => 32,  184 => 31,  180 => 30,  176 => 29,  169 => 25,  162 => 20,  160 => 15,  155 => 13,  146 => 6,  143 => 5,  134 => 94,  130 => 93,  126 => 92,  122 => 91,  118 => 90,  114 => 89,  110 => 88,  106 => 87,  102 => 86,  98 => 85,  94 => 84,  90 => 83,  86 => 82,  71 => 69,  69 => 66,  62 => 62,  33 => 35,  30 => 5,  28 => 4,  23 => 1,);
     }
 }
