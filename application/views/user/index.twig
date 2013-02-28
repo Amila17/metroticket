@@ -1,0 +1,34 @@
+{% extends "base_layout.twig" %}
+{% block content %}
+<form class="form-horizontal" method="post" action="./addUser">
+  <div class="control-group">
+    <label class="control-label" for="inputName">Name</label>
+    <div class="controls">
+      <input type="text" id="inputName" name="inputName" placeholder="Name">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputEmail">Email</label>
+    <div class="controls">
+      <input type="text" id="inputEmail" name="inputEmail" namplaceholder="Email">
+    </div>
+  </div>
+    <div class="control-group">
+    <label class="control-label" for="inputPassword">Password</label>
+    <div class="controls">
+      <input type="password" id="inputPassword" name="inputPassword" placeholder="Password">
+    </div>
+  </div>
+      <div class="control-group">
+    <label class="control-label" for="inputConfirmPassword">Confirm Password</label>
+    <div class="controls">
+      <input type="password" id="inputConfirmPassword" name="inputConfirmPassword" placeholder="Confirm Password">
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="submit">Sign Up</button>
+    </div>
+  </div>
+</form>
+{% endblock %}
