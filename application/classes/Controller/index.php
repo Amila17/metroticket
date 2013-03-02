@@ -4,26 +4,29 @@ class Controller_Index extends Controller_Kotwig
 {
 	private $session;
 	
-	public function before()
+/* 	public function before()
 	{
 		parent::before();
 		Session::$default = 'database';
 		$this->session = Session::instance();
-	}
+	} */
 	
 	public function action_index()
 	{/* 
 		$modelvar = new Model_Index();
 		$modelvar->addIndex(); Java . == Php ->*/
+		
+		$this->template->set_filename('./index/index');
 	}
 	
 	public function action_contact()
 	{
+		$this->template->set_filename('./index/contact');
 	}
 	
 	public function action_aboutUs()
 	{
-		
+		$this->template->set_filename('./index/aboutUs');
 	}
 
 } // End Welcome

@@ -1,0 +1,99 @@
+{% extends "base_layout.twig" %}
+
+
+{% block content %}
+<h1> 
+	<div class="btn-group" data-toggle="buttons-radio">
+  		<button type="button" name="addButton" class="btn btn-large btn-primary" onclick="enableButtonClick();addAction('A');">Add Ticket<tton>
+  		<button type="button" name="removeButton" class="btn btn-large btn-primary" onclick="enableButtonClick();addAction('R');">Remove Ticket<tton>
+  		<button type="button" name="editButton" class="btn btn-large btn-primary" onclick="enableButtonClick();addAction('E');">Edit Item<tton>
+	</div> 
+</h1>
+<body onload="formOnload()">
+  	 <form name="ticketManager" class="form-horizontal" method="post" action="./ticketMaintenance">
+			
+			<div class="control-group" name="divTextTicket">
+		 		<label class="control-label" for="ticketType">Ticket Type</label>
+			<div class="controls">
+				<input class="input" type="text" id="ticketType" name="txtTicketType" required/>
+				</div>
+			</div>
+
+			<div class="control-group" name="divComboTicket">
+		 		<label class="control-label" for="ticketType">Ticket Type</label>
+				<div class="controls">
+					<select name="cmbTicketType">
+					{% for ticket in tickets %}
+					<option>{{ ticket.name|e }}</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+			
+			<div class="control-group">
+		 		<label class="control-label" for="ticketPrice">Ticket Price</label>
+				<div class="controls">
+					<input class="input" type="text" id="ticketPrice" name="txtTicketPrice" required/>
+				</div>
+			</div>
+			
+    		<div class="form-actions">
+   					<button type="submit" class="btn btn-large btn-primary">Confirm<tton>
+   			</div>
+
+ 				 <input type="hidden" id="txtAction" name="txtAction">
+			</form>
+</body>
+<script type="text/javascript">
+function addAction(actionType)
+{
+	var elem = document.getElementById("txtAction");
+	elem.value = actionType;
+}
+</script>
+<script>
+	function formOnload()
+	{
+		disableField(document.forms["ticketManager"].txtTicketType);
+		disableField(document.forms["ticketManager"].txtTicketPrice);
+		hideControl(document.forms["ticketManager"].divComboTicket);
+	}
+	function enableButtonClick()
+	{
+		enableField(document.forms["ticketManager"].txtTicketType);
+		enableField(document.forms["ticketManager"].txtTicketPrice);
+	}
+	function amendValue()
+	{
+		hideControl(document.forms["ticketManager"].txtTicketType);
+		unhideControl(document.forms["ticketManager"].divComboTicket);
+	}
+	function addValue()
+	{
+		hideControl(document.forms["ticketManager"].divComboTicket);
+		unhideControl(document.forms["ticketManager"].txtTicketType);
+	}
+	
+	function disableField(myField)
+	{
+		myField.disabled = true;
+		return true;
+	}
+	function enableField(myField)
+	{
+		myField.disabled = false;
+		return true;
+	}
+	function hideControl(myControl)
+	{
+		control.style.visibility = 'hidden';
+		return true;
+	}
+	function unhideControl(myControl)
+	{
+		control.style.visibility = 'visible';
+		return true;
+	}
+</script>
+
+{% endblock content %}

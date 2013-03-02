@@ -1,0 +1,58 @@
+{% extends "base_layout.twig" %} 
+{% block content %}
+<head>
+<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" /> -->
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="/resources/demos/external/jquery.mousewheel.js"></script>
+<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+<!-- <link rel="stylesheet" href="/resources/demos/style.css" /> -->
+</head>
+ <body>
+      <form name="formTicket" class="form-horizontal" method="POST" action="ticket/addTicket">
+	      <div class="control-group">
+			 	<label class="control-label" for="inputZone">Zone Type</label>
+			 	<div class="controls">
+				<select name="cmbxZoneType" required>
+					{% for zone in zones %}
+					<option>{{ zone.type|e }}</option>
+					{% endfor %}
+				</select>
+				</div>
+		  </div>
+		  <div class="control-group">
+			 	<label class="control-label" for="inputTicketType">Ticket Type</label>
+		<div class="controls">
+				<select name="cmbxTicketType" required>
+					{% for ticketType in ticketTypes %}
+					<option>{{ ticketType.name|e }}</option>
+					{% endfor %}
+				</select>
+				</div>
+			</div>
+			 <div class="control-group">
+		 		<label class="control-label" for="inputNoOfTickets">No of Tickets</label>
+			<div class="controls">
+				<input class="input-mini" type="text" id="spinner" name="noOfTickets" required/>
+				</div>
+			</div>
+			 <div class="control-group">
+			 	<label class="control-label" for="inputDate">Travel Date</label>
+			 	<div class="controls">
+				<input class="input-small" type="text" id="datepicker" name="travelDate" required/>
+				</div>
+			</div>
+	<div class="form-actions">
+		 	 <button class="btn btn-large btn-primary" type="submit" action="resetLoginError()">Add To Basket</button>	
+	</div>
+</form>
+</body>
+ <script>
+  $(function() {
+    var spinner = $( "#spinner" ).spinner(); 
+    $( "button" ).button();
+  });
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  </script>
+{% endblock %}

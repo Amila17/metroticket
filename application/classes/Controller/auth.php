@@ -1,48 +1,48 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Auth extends Controller_Kotwig
-{
-	private $session;
-	
-	public function before()
-	{
-		parent::before();
-		Session::$default = 'database';
-		$this->session = Session::instance();
-	}
-	
+{	
 	public function action_index()
 	{
-		//$this->template->content = View::factory('auth/index');
+		//$this->template->set_filename('../auth/index');
 	}
 	
 	public function action_userLogin()
-	{
-		//$this->template->content = View::factory('auth/userLogin')
-		//->bind('message', $message);
+	{		
+		$userEmail = $this->request->post('inputEmail');
+		$userPassword = $this->request->post('inputPassword');
 		
-		if(HTTP_Request::POST == $this->request->method())
+		$modelvar = new Model_MetroUser();
+		$customer = $modelvar->getUser($userEmail);
+		if($customer != null)
 		{
-			$remember = array_key_exists('remember', $this->request->post()) ? (bool) $this->request->post('remember'):FALSE;
-			
-			$user = Auth::instance()->login($this->request->post('username'), $this->request-post('password'), $remember);
-			
-			
-			if($user)
+			$storedPassword = $customer->password;			
+			if(crypt($userPassword, $storedPassword) == $storedPassword)
 			{
-				Request::current()->redirect('index/index');
+				$session = Session::instance();
+				$session->set('username', $userEmail);
+				$this->template->loginError = '';
+				$this->template->set_filename('ticket/index');
 			}
 			else
 			{
-				$message = 'Login Failed!';
+				$this->template->set_filename('auth/index');
+				$this->template->loginError = 'Login Failed!';
 			}
 		}
+		else
+		{
+			$this->template->set_filename('auth/index');
+			$this->template->loginError = 'Username does not exist!';
+		}
+
+		
 	}
 	
 	public function action_userLogout()
 	{
-		Auth::instance()->logout();
-		
-		Request::current()->redirect('index/index');
+		$session = Session::instance();
+		$session->delete('username');
+		$this->template->set_filename('index/index');
 	}	
 }

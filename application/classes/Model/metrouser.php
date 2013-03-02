@@ -3,7 +3,7 @@
 class Model_MetroUser extends Redbean
 {
 	public function addUser($name, $email, $password)
-	{
+	{	
 		$customer = R::dispense('customer');
 		$customer->name = $name;
 		$customer->email = $email;
@@ -15,5 +15,20 @@ class Model_MetroUser extends Redbean
 	public function removeUser($id)
 	{
 		
+	}
+	
+	public function getUser($userEmail)
+	{
+		$customer = R::findOne('customer',' email = ? ', array( $userEmail ));
+		return $customer;
+	}
+	
+	public function checkUserNameExists($userEmail)
+	{
+		$userName = R::find('customer', ' email = ? ', array( $userEmail ));
+		if(count($userName) == 0)
+			return false;
+		else
+			return true;
 	}
 }

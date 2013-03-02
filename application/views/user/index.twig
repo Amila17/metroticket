@@ -1,6 +1,8 @@
 {% extends "base_layout.twig" %}
 {% block content %}
-<form class="form-horizontal" method="post" action="./addUser">
+ <script src="http://code.jquery.com/jquery-latest.js"></script>
+ <body onload="formOnload()">
+<form name="register" class="form-horizontal" method="post" action="./addUser">
   <div class="control-group">
     <label class="control-label" for="inputName">Name</label>
     <div class="controls">
@@ -8,7 +10,7 @@
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="inputEmail">Email</label>
+    <label class="control-label" for="inputEmail">Email / Username</label>
     <div class="controls">
       <input type="text" id="inputEmail" name="inputEmail" namplaceholder="Email">
     </div>
@@ -19,16 +21,57 @@
       <input type="password" id="inputPassword" name="inputPassword" placeholder="Password">
     </div>
   </div>
-      <div class="control-group">
+  <div class="control-group">
     <label class="control-label" for="inputConfirmPassword">Confirm Password</label>
     <div class="controls">
       <input type="password" id="inputConfirmPassword" name="inputConfirmPassword" placeholder="Confirm Password">
     </div>
   </div>
+  <div class="control-group error">
+        	<span class="label label-important">{{ createError }}</span>
+  </div>
   <div class="control-group">
     <div class="controls">
-      <button type="submit" class="submit">Sign Up</button>
+      <button class="btn btn-medium btn-primary" name="btnSubmit" type="submit">Sign Up</button>
     </div>
   </div>
 </form>
+</body>
+<script type="text/javascript" src="/resources/events.js"></script>
+<script>
+$('#inputConfirmPassword').keyup(function(event) {
+	var password = document.getElementById("inputPassword");
+	var confirmPassword = document.getElementById("inputConfirmPassword");
+
+	if(password.value == confirmPassword.value)
+	{
+		enableField(document.forms["register"].btnSubmit);
+	}
+	else
+	{
+		disableField(document.forms["register"].btnSubmit);
+	} 
+	
+	}).keydown(function(event) {
+	  if (event.which == 13) {
+	    event.preventDefault();
+	  }
+	});
+</script>
+<script type="text/javascript">
+	function formOnload()
+	{
+		disableField(document.forms["register"].btnSubmit);
+	}
+	function disableField(fieldName)
+	{
+		fieldName.disabled = true;
+		return true;
+	}
+	function enableField(fieldName)
+	{
+		fieldName.disabled = false;
+		return true;
+	}
+</script>
 {% endblock %}
