@@ -20,9 +20,12 @@ class Controller_Auth extends Controller_Kotwig
 			if(crypt($userPassword, $storedPassword) == $storedPassword)
 			{
 				$session = Session::instance();
-				$session->set('username', $userEmail);
+				$session->set('userObject', $customer);
 				$this->template->loginError = '';
-				$this->template->set_filename('ticket/index');
+                if($customer->role == 'user')
+				    $this->redirect('ticket/index');//$this->template->set_filename('ticket/index');
+                else
+                    $this->redirect('admin/index');
 			}
 			else
 			{
@@ -42,7 +45,7 @@ class Controller_Auth extends Controller_Kotwig
 	public function action_userLogout()
 	{
 		$session = Session::instance();
-		$session->delete('username');
+		$session->delete('userObject');
 		$this->template->set_filename('index/index');
 	}	
 }

@@ -2,12 +2,13 @@
 
 class Model_MetroUser extends Redbean
 {
-	public function addUser($name, $email, $password)
+	public function addUser($name, $email, $password, $role)
 	{	
 		$customer = R::dispense('customer');
 		$customer->name = $name;
 		$customer->email = $email;
 		$customer->password = $password;
+        $customer->role = $role;
 		
 		$id = R::store($customer);
 	}

@@ -2,35 +2,38 @@
 
 
 {% block content %}
+<body onload="formOnload()">
 <h1> 
 	<div class="btn-group" data-toggle="buttons-radio">
-  		<button type="button" name="addButton" class="btn btn-large btn-primary" onclick="enableButtonClick();addAction('A');">Add Ticket<tton>
-  		<button type="button" name="removeButton" class="btn btn-large btn-primary" onclick="enableButtonClick();addAction('R');">Remove Ticket<tton>
-  		<button type="button" name="editButton" class="btn btn-large btn-primary" onclick="enableButtonClick();addAction('E');">Edit Item<tton>
+  		<button type="button" name="addButton" class="btn btn-medium btn-primary"
+                  onclick="enableButtonClick();addAction('A');addValue();">Add Ticket</button>
+  		<button type="button" name="removeButton" class="btn btn-medium btn-primary"
+                  onclick="enableButtonClick();addAction('R');removeValue();">Remove Ticket</button>
+  		<button type="button" name="editButton" class="btn btn-medium btn-primary"
+                  onclick="enableButtonClick();addAction('E');amendValue();">Edit Item</button>
 	</div> 
 </h1>
-<body onload="formOnload()">
-  	 <form name="ticketManager" class="form-horizontal" method="post" action="./ticketMaintenance">
+  	 <form name="ticketManager" method="post" action="./ticketMaintenance">
 			
-			<div class="control-group" name="divTextTicket">
+			<div class="control-group" id="divTextTicket">
 		 		<label class="control-label" for="ticketType">Ticket Type</label>
 			<div class="controls">
 				<input class="input" type="text" id="ticketType" name="txtTicketType" required/>
 				</div>
 			</div>
 
-			<div class="control-group" name="divComboTicket">
+			<div class="control-group" id="cmbTicketType">
 		 		<label class="control-label" for="ticketType">Ticket Type</label>
 				<div class="controls">
-					<select name="cmbTicketType">
+					<select name="cmbTicketType" required>
 					{% for ticket in tickets %}
-					<option>{{ ticket.name|e }}</option>
+					<option value={{ ticket.name }}>{{ ticket.name|e }}</option>
 					{% endfor %}
 					</select>
 				</div>
 			</div>
 			
-			<div class="control-group">
+			<div class="control-group" id="txtTicketPrice">
 		 		<label class="control-label" for="ticketPrice">Ticket Price</label>
 				<div class="controls">
 					<input class="input" type="text" id="ticketPrice" name="txtTicketPrice" required/>
@@ -38,7 +41,7 @@
 			</div>
 			
     		<div class="form-actions">
-   					<button type="submit" class="btn btn-large btn-primary">Confirm<tton>
+   					<button type="submit" class="btn btn-large btn-primary">Confirm</button>
    			</div>
 
  				 <input type="hidden" id="txtAction" name="txtAction">
@@ -56,7 +59,7 @@ function addAction(actionType)
 	{
 		disableField(document.forms["ticketManager"].txtTicketType);
 		disableField(document.forms["ticketManager"].txtTicketPrice);
-		hideControl(document.forms["ticketManager"].divComboTicket);
+		hideControl(document.getElementById('cmbTicketType'));
 	}
 	function enableButtonClick()
 	{
@@ -65,14 +68,23 @@ function addAction(actionType)
 	}
 	function amendValue()
 	{
-		hideControl(document.forms["ticketManager"].txtTicketType);
-		unhideControl(document.forms["ticketManager"].divComboTicket);
+		hideControl(document.getElementById('divTextTicket'));
+        unhideControl(document.getElementById('txtTicketPrice'));
+		unhideControl(document.getElementById('cmbTicketType'));
 	}
 	function addValue()
 	{
-		hideControl(document.forms["ticketManager"].divComboTicket);
-		unhideControl(document.forms["ticketManager"].txtTicketType);
+		hideControl(document.getElementById('cmbTicketType'));
+        unhideControl(document.getElementById('txtTicketPrice'));
+		unhideControl(document.getElementById('divTextTicket'));
 	}
+    function removeValue()
+    {
+
+        unhideControl(document.getElementById('cmbTicketType'));
+        hideControl(document.getElementById('txtTicketPrice'));
+        hideControl(document.getElementById('divTextTicket'));
+    }
 	
 	function disableField(myField)
 	{
@@ -86,12 +98,12 @@ function addAction(actionType)
 	}
 	function hideControl(myControl)
 	{
-		control.style.visibility = 'hidden';
+		myControl.style.display="none";
 		return true;
 	}
 	function unhideControl(myControl)
 	{
-		control.style.visibility = 'visible';
+        myControl.style.display= "";
 		return true;
 	}
 </script>

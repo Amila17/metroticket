@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Fair extends Controller
+class Controller_Fair extends Controller_Kotwig
 {
 	public function action_addFair()
 	{

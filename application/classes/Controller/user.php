@@ -18,23 +18,34 @@ class Controller_User extends Controller_Kotwig
 	{
 		$userName = $this->request->post('inputName');
 		$userEmail = $this->request->post('inputEmail');
-		$userPassword = $this->request->post('inputPassword');		
+		$userPassword = $this->request->post('inputPassword');
+        $role = 'user';
 		
 		$modelvar = new Model_MetroUser();
 		$userExists = $modelvar->checkUserNameExists($userEmail);
 		
 		if($userExists == FALSE)
 		{
-			$modelvar->addUser($userName, $userEmail, crypt($userPassword));
-			$this->template->set_filename('auth/index'); 
+			$modelvar->addUser($userName, $userEmail, crypt($userPassword), $role);
+			//$this->template->set_filename('auth/index');
+            $this->redirect('auth/index');
 		}
 		else
 		{
-			$this->template->set_filename('user/index');
+			//$this->template->set_filename('user/index');
+            $this->redirect('user/index');
 			$this->template->createError = 'Username Exists!';
 		}
 	}
-	
+
+    public function action_addAdmin()
+    {
+        $modelvar = new Model_MetroUser();
+        $modelvar->addUser('Admin','Admin@Admin.com',crypt('Admin'), 'admin');
+
+        $this->redirect('index/index');
+    }
+
 	public function action_removeUser()
 	{
 		

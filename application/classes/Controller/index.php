@@ -2,8 +2,6 @@
 
 class Controller_Index extends Controller_Kotwig
 {
-	private $session;
-	
 /* 	public function before()
 	{
 		parent::before();
@@ -16,17 +14,19 @@ class Controller_Index extends Controller_Kotwig
 		$modelvar = new Model_Index();
 		$modelvar->addIndex(); Java . == Php ->*/
 		
-		$this->template->set_filename('./index/index');
+		//$this->template->set_filename('./index/index');
+        //$this->redirect('index/index');
 	}
 	
 	public function action_contact()
 	{
-		$this->template->set_filename('./index/contact');
+		//$this->template->set_filename('./index/contact');
+        //$this->redirect('/index/contact');
 	}
 	
 	public function action_aboutUs()
 	{
-		$this->template->set_filename('./index/aboutUs');
+		//$this->template->set_filename('./index/aboutUs');
 	}
 
 } // End Welcome

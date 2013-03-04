@@ -1,19 +1,31 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Zone extends Controller
+class Controller_Zone extends Controller_Kotwig
 {
-	public function action_addZone()
+    public function action_index()
+    {
+    }
+
+	public function action_zoneMaintenance()
 	{
-		
-	}
-	
-	public function action_editZone()
-	{
-		
-	}
-	
-	public function action_removeZone()
-	{
-		
+        $zoneTxtType = $this->request->post('txtZoneType');
+        $zoneCmbType = $this->request->post('cmbZoneType');
+        $zonePrice = $this->request->post('txtZonePrice');
+        $zoneOp = $this->request->post('txtAction');
+        $modelTicket = new Model_TicketInfo();
+        if($zoneOp == 'A')
+        {
+            $modelTicket->addTicket($zoneTxtType,$zonePrice);
+        }
+        elseif($zoneOp == 'R')
+        {
+            $modelTicket->removeTicket($zoneCmbType);
+        }
+        elseif($zoneOp == 'E')
+        {
+            $modelTicket->editTicket($zoneCmbType,$zonePrice);
+        }
+
+        $this->redirect('ticket/admin');
 	}
 }

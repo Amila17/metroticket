@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Cart extends Controller
+class Controller_Cart extends Controller_Kotwig
 {
 	public function action_addToCart()
 	{
