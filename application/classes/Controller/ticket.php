@@ -5,32 +5,28 @@ class Controller_Ticket extends Controller_Kotwig
 	public function action_index()
 	{
         $session = Session::instance();
-        $user = $session->get('userObject');
+        $user = $session->get('user_name');
+        $role = $session->get('user_role');
         if(!isset($user))
         {
-            //$this->template->set_filename('auth/index');
             $this->redirect('auth/index');
         }
         else
         {
-
-            $modelZone = new Model_Zone();
+            $modelZone = new Model_ZoneInfo();
             $zones = $modelZone->getZones();
 
-            $this->template->zones = $zones;
-            $this->template->ticketTypes = $this->action_getTicketData();
+            $modelTicket = new Model_TicketTypeInfo();
+            $tickets = $modelTicket->getTicketTypes();
 
-            $this->template->set_filename('ticket/index');
-            //$this->redirect('ticket/index');
+            $this->template->ticketTypes = $tickets;
+            $this->template->zoneTypes = $zones;
+
+            if($role == 'admin')
+                $this->template->set_filename('admin/index');
+            elseif ($role == 'user')
+                $this->template->set_filename('ticket/index');
         }
-	}
-	
-	public function action_getTicketData()
-	{
-		$modelTicket = new Model_Ticket();
-		$tickets = $modelTicket->getTickets();
-		
-		return $tickets;
 	}
 	
 	public function action_printTicket()
@@ -40,7 +36,7 @@ class Controller_Ticket extends Controller_Kotwig
 	
 	public function action_purchaseTicket()
 	{
-		
+		$this->redirect('cart/addToCart');
 	}
 	
 	public function action_ticketMaintenance()
@@ -49,18 +45,18 @@ class Controller_Ticket extends Controller_Kotwig
         $ticketCmbName = $this->request->post('cmbTicketType');
         $ticketPrice = $this->request->post('txtTicketPrice');
         $ticketOperation = $this->request->post('txtAction');
-        $modelTicket = new Model_TicketInfo();
+        $modelTicket = new Model_TicketTypeInfo();
         if($ticketOperation == 'A')
         {
-            $modelTicket->addTicket($ticketName,$ticketPrice);
+            $modelTicket->addTicketType($ticketName,$ticketPrice);
         }
         elseif($ticketOperation == 'R')
         {
-            $modelTicket->removeTicket($ticketCmbName);
+            $modelTicket->removeTicketType($ticketCmbName);
         }
         elseif($ticketOperation == 'E')
         {
-            $modelTicket->editTicket($ticketCmbName,$ticketPrice);
+            $modelTicket->editTicketType($ticketCmbName,$ticketPrice);
         }
 
         $this->redirect('ticket/admin');
@@ -68,8 +64,8 @@ class Controller_Ticket extends Controller_Kotwig
 
     public function action_admin()
     {
-        $modelTicket = new Model_TicketInfo();
-        $tickets = $modelTicket->getTickets();
+        $modelTicket = new Model_TicketTypeInfo();
+        $tickets = $modelTicket->getTicketTypes();
 
         $this->template->tickets = $tickets;
     }

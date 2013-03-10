@@ -2,6 +2,9 @@
 
 
 {% block content %}
+<head>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+</head>
 <body onload="formOnload()">
 <h1>
 <div class="btn-group" data-toggle="buttons-radio">
@@ -17,15 +20,15 @@
 			
 			<div class="control-group" id="divTextZone">
 		 		<label class="control-label" for="zoneType">Zone Type</label>
-			<div class="controls">
-				<input class="input" type="text" id="zoneType" name="txtZoneType" required/>
+			    <div class="controls">
+				    <input class="input" type="text" id="zoneType" name="txtZoneType" required/>
 				</div>
 			</div>
 
 			<div class="control-group" id="cmbZoneType">
 		 		<label class="control-label" for="zoneType">Zone Type</label>
 				<div class="controls">
-					<select name="cmbZoneType" required>
+					<select name="cmbZoneType">
 					{% for zone in zones %}
 					<option value={{ zone.type }}>{{ zone.type|e }}</option>
 					{% endfor %}
@@ -39,12 +42,13 @@
 					<input class="input" type="text" id="zonePrice" name="txtZonePrice" required/>
 				</div>
 			</div>
-			
-    		<div class="form-actions">
-   					<button type="submit" class="btn btn-large btn-primary">Confirm</button>
-   			</div>
 
+           <div class="control-group" id="btnSubmit">
+    		<div class="form-actions">
+   					<button type="submit" value="submit" class="btn btn-large btn-primary">Confirm</button>
+   			</div>
  				 <input type="hidden" id="txtAction" name="txtAction">
+             </div>
 			</form>
 </body>
 <script type="text/javascript">
@@ -68,24 +72,32 @@ function addAction(actionType)
 	}
 	function amendValue()
 	{
-		hideControl(document.getElementById('divZoneTicket'));
+		hideControl(document.getElementById('divTextZone'));
         unhideControl(document.getElementById('txtZonePrice'));
 		unhideControl(document.getElementById('cmbZoneType'));
+        addProperty('#zoneType','required',false);
+        addProperty('#zonePrice','required',true);
 	}
 	function addValue()
 	{
 		hideControl(document.getElementById('cmbZoneType'));
         unhideControl(document.getElementById('txtZonePrice'));
-		unhideControl(document.getElementById('divZoneTicket'));
+		unhideControl(document.getElementById('divTextZone'));
+        addProperty('#zoneType','required',true);
+        addProperty('#zonePrice','required',true);
 	}
     function removeValue()
     {
-
         unhideControl(document.getElementById('cmbZoneType'));
         hideControl(document.getElementById('txtZonePrice'));
-        hideControl(document.getElementById('divZoneTicket'));
+        hideControl(document.getElementById('divTextZone'));
+        addProperty('#zoneType','required',false);
+        addProperty('#zonePrice','required',false);
     }
-	
+    function addProperty(field, property, value)
+    {
+        $(field).prop(property, value);
+    }
 	function disableField(myField)
 	{
 		myField.disabled = true;

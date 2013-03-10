@@ -8,7 +8,7 @@ class Model_ZoneInfo extends Redbean
 		$zone->type = $type;
 		$zone->price = $price;
 		
-		$id = R::store($zone);
+		R::store($zone);
 	}
 	
 	public function removeZone($type)
@@ -18,9 +18,13 @@ class Model_ZoneInfo extends Redbean
         R::trash($zone);
 	}
 
-    public function editZone($type)
+    public function editZone($type, $zonePrice)
     {
-       //TODO: Put logic
+        $zone = $this->findZoneByType($type);
+        $amndZone = R::load('zone', $zone->id);
+        $amndZone->price = $zonePrice;
+
+        R::store($amndZone);
     }
 
     public function findZoneByType($type)

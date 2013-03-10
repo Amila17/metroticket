@@ -9,8 +9,12 @@ class Model_MetroUser extends Redbean
 		$customer->email = $email;
 		$customer->password = $password;
         $customer->role = $role;
-		
-		$id = R::store($customer);
+
+        $modelCart = new Model_CartInfo();
+        $cart = $modelCart->createCart();
+
+        $customer->usercart = array($cart);
+		R::store($customer);
 	}
 	
 	public function removeUser($id)

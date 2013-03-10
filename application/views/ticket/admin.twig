@@ -2,6 +2,9 @@
 
 
 {% block content %}
+    <head>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    </head>
 <body onload="formOnload()">
 <h1> 
 	<div class="btn-group" data-toggle="buttons-radio">
@@ -18,14 +21,14 @@
 			<div class="control-group" id="divTextTicket">
 		 		<label class="control-label" for="ticketType">Ticket Type</label>
 			<div class="controls">
-				<input class="input" type="text" id="ticketType" name="txtTicketType" required/>
+				<input class="input" type="text" id="ticketType" name="txtTicketType" required="true"/>
 				</div>
 			</div>
 
 			<div class="control-group" id="cmbTicketType">
 		 		<label class="control-label" for="ticketType">Ticket Type</label>
 				<div class="controls">
-					<select name="cmbTicketType" required>
+					<select name="cmbTicketType">
 					{% for ticket in tickets %}
 					<option value={{ ticket.name }}>{{ ticket.name|e }}</option>
 					{% endfor %}
@@ -36,7 +39,7 @@
 			<div class="control-group" id="txtTicketPrice">
 		 		<label class="control-label" for="ticketPrice">Ticket Price</label>
 				<div class="controls">
-					<input class="input" type="text" id="ticketPrice" name="txtTicketPrice" required/>
+					<input class="input" type="text" id="ticketPrice" name="txtTicketPrice" required="true"/>
 				</div>
 			</div>
 			
@@ -57,6 +60,7 @@ function addAction(actionType)
 <script>
 	function formOnload()
 	{
+       // addValue();
 		disableField(document.forms["ticketManager"].txtTicketType);
 		disableField(document.forms["ticketManager"].txtTicketPrice);
 		hideControl(document.getElementById('cmbTicketType'));
@@ -71,12 +75,16 @@ function addAction(actionType)
 		hideControl(document.getElementById('divTextTicket'));
         unhideControl(document.getElementById('txtTicketPrice'));
 		unhideControl(document.getElementById('cmbTicketType'));
+        addProperty('#ticketType','required',false);
+        addProperty('#ticketPrice','required',true);
 	}
 	function addValue()
 	{
 		hideControl(document.getElementById('cmbTicketType'));
         unhideControl(document.getElementById('txtTicketPrice'));
 		unhideControl(document.getElementById('divTextTicket'));
+        addProperty('#ticketType','required',true);
+        addProperty('#ticketPrice','required',true);
 	}
     function removeValue()
     {
@@ -84,8 +92,13 @@ function addAction(actionType)
         unhideControl(document.getElementById('cmbTicketType'));
         hideControl(document.getElementById('txtTicketPrice'));
         hideControl(document.getElementById('divTextTicket'));
+        addProperty('#ticketType','required',false);
+        addProperty('#ticketPrice','required',false);
     }
-	
+	function addProperty(field, property, value)
+    {
+        $(field).prop(property, value);
+    }
 	function disableField(myField)
 	{
 		myField.disabled = true;

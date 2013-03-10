@@ -4,6 +4,9 @@ class Controller_Zone extends Controller_Kotwig
 {
     public function action_index()
     {
+        $modelZone = new Model_ZoneInfo();
+        $zones = $modelZone->getZones();
+        $this->template->zones = $zones;
     }
 
 	public function action_zoneMaintenance()
@@ -12,20 +15,20 @@ class Controller_Zone extends Controller_Kotwig
         $zoneCmbType = $this->request->post('cmbZoneType');
         $zonePrice = $this->request->post('txtZonePrice');
         $zoneOp = $this->request->post('txtAction');
-        $modelTicket = new Model_TicketInfo();
-        if($zoneOp == 'A')
+        $modelZone= new Model_ZoneInfo();
+        if($zoneOp == "A")
         {
-            $modelTicket->addTicket($zoneTxtType,$zonePrice);
+            $modelZone->addZone($zoneTxtType, $zonePrice);//addTicket($zoneTxtType,$zonePrice);
         }
         elseif($zoneOp == 'R')
         {
-            $modelTicket->removeTicket($zoneCmbType);
+            $modelZone->removeZone($zoneCmbType);//removeTicket($zoneCmbType);
         }
         elseif($zoneOp == 'E')
         {
-            $modelTicket->editTicket($zoneCmbType,$zonePrice);
+            $modelZone->editZone($zoneCmbType, $zonePrice);//editTicket($zoneCmbType,$zonePrice);
         }
 
-        $this->redirect('ticket/admin');
+        $this->redirect('zone/index');
 	}
 }
