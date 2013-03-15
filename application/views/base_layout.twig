@@ -1,99 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     {% set prefix = '/metroticket' %}
-  	{% block head %}
-    <meta charset="utf-8">
-    <title>MetroTicket</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    {% block head %}
+        <meta charset="utf-8">
+        <title>MetroTicket</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="{{ prefix }}/assets/css/bootstrap.css" rel="stylesheet">
-    <style type="text/css">
-    {% block style %}
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-      {% endblock %}
-    </style>
-    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
+        <!-- Le styles -->
+        <link href="{{ prefix }}/assets/css/bootstrap.css" rel="stylesheet">
+        <link href="{{ prefix }}/assets/css/bootstrap-responsive.css" rel="stylesheet">
+        <style type="text/css">
+            {% block style %}
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+            {% endblock %}
+        </style>
+        <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="{{ prefix }}/assets/js/html5shiv.js"></script>
-    <![endif]-->
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="{{ prefix }}/assets/js/html5shiv.js"></script>
+        <![endif]-->
 
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ prefix }}/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ prefix }}/assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ prefix }}/assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="{{ prefix }}/assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="{{ prefix }}/assets/ico/favicon.png">
-  	{% endblock %}
-  </head>
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ prefix }}/assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ prefix }}/assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ prefix }}/assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="{{ prefix }}/assets/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="shortcut icon" href="{{ prefix }}/assets/ico/favicon.png">
+    {% endblock %}
+</head>
 
-  <body>
-  	
-  	 <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
         <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="/metroticket">MetroTicket</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li><a href="/metroticket">Home</a></li>
-              <li><a href="index/aboutUs">About</a></li>
-              <li><a href="index/contact">Contact</a></li>
-               <li><a href="index/ticket">Ticket</a></li>
-                <li><a href="index/login">Login</a></li>
-                <li><a href="index/logout">Logout</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="/metroticket">MetroTicket</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li><a href="/metroticket"><i class="icon-home"> </i>Home</a></li>
+                    <li><a href="{{ prefix }}/index/aboutUs"><i class="icon-book"> </i>About</a></li>
+                    <li><a href="{{ prefix }}/index/contact"><i class="icon-envelope"> </i>Contact</a></li>
+                    <li><a href="{{ prefix }}/index/ticket"><i class="icon-credit-card"> </i>Ticket</a></li>
+                    <li><a href="{{ prefix }}/cart/index"><i class="icon-shopping-cart"> </i>Cart</a></li>
+                    <li><a href="{{ prefix }}/auth/index"><i class="icon-lock"> </i>Login</a></li>
+                    <li><a href="{{ prefix }}/auth/userLogout"><i class="icon-unlock"> </i>Logout</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
         </div>
-      </div>
     </div>
-    
-    <div class="container">
-	 	
+</div>
+
+<div class="container">
+
     <div id="content">{% block content %}{% endblock %}</div>
-	
-	<div class="footer">
-	
-	{% block footer %}
-	<p>&copy; Copyright 2013 by <a href="http://localhost/metroticket/">MetroTicket</a>.</p>
-	{% endblock %}
-	
-	</div>
-	
-	
-    </div> <!-- /container -->
-    
-    
 
-	
-	
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ prefix }}/assets/js/jquery.js"></script>
-    <script src="{{ prefix }}/assets/js/bootstrap-transition.js"></script>
-    <script src="{{ prefix }}/assets/js/bootstrap-alert.js"></script>
-    <script src="{{ prefix }}/assets/js/bootstrap-modal.js"></script>
-    <script src="{{ prefix }}/assets/js/bootstrap-dropdown.js"></script>
-    <script src="{{ prefix }}/assets/js/bootstrap-scrollspy.js"></script>
-    <script src="{{ prefix }}/assets/js/bootstrap-tab.js"></script>
-    <script src="{{ prefix }}/assets/js/bootstrap-tooltip.js"></script>
-    <script src="{{ prefix }}/assets/js/bootstrap-popover.js"></script>
-    <script src="{{ prefix }}/assets/js/bootstrap-button.js"></script>
-    <script src="{{ prefix }}/assets/js/bootstrap-collapse.js"></script>
-    <script src="{{ prefix }}/assets/js/bootstrap-carousel.js"></script>
-    <script src="{{ prefix }}/assets/js/bootstrap-typeahead.js"></script>
+    <div class="footer">
 
-  </body>
+        {% block footer %}
+            <p>&copy; Copyright 2013 by <a href="http://localhost/metroticket/">MetroTicket</a>.</p>
+        {% endblock %}
+
+    </div>
+
+
+</div> <!-- /container -->
+
+
+
+
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css"/>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="{{ prefix }}/assets/js/jquery.js"></script>
+<script src="{{ prefix }}/assets/js/bootstrap-transition.js"></script>
+<script src="{{ prefix }}/assets/js/bootstrap-alert.js"></script>
+<script src="{{ prefix }}/assets/js/bootstrap-modal.js"></script>
+<script src="{{ prefix }}/assets/js/bootstrap-dropdown.js"></script>
+<script src="{{ prefix }}/assets/js/bootstrap-scrollspy.js"></script>
+<script src="{{ prefix }}/assets/js/bootstrap-tab.js"></script>
+<script src="{{ prefix }}/assets/js/bootstrap-tooltip.js"></script>
+<script src="{{ prefix }}/assets/js/bootstrap-popover.js"></script>
+<script src="{{ prefix }}/assets/js/bootstrap-button.js"></script>
+<script src="{{ prefix }}/assets/js/bootstrap-collapse.js"></script>
+<script src="{{ prefix }}/assets/js/bootstrap-carousel.js"></script>
+<script src="{{ prefix }}/assets/js/bootstrap-typeahead.js"></script>
+
+</body>
 </html>

@@ -5,36 +5,46 @@ class Model_CartInfo extends RedBean
     public function createCart()
     {
         $cartObj = R::dispense('cart');
-        $cartObj->cartuid = rand();
-       // $cart->createtime = new DateTime();
+        $date = new DateTime();
+        $cartObj->createtime = $date->getTimestamp();
 
         $id = R::store($cartObj);
 
-        return $this->getCart($id);
+        $storedCart = $this->getCart($id);
+        return  $storedCart;
     }
 
      public function addCartItem($cartItemInfo, $user)
      {
-         $cartarray = $user->cart;
+         $cart = R::load('cart',$user->cartid);
 
-         $cart = R::load('cart',$cartarray[0]->id);
-
-         if($cart->cartitem == null)
+         if(is_null($cart->ownCartItem))
          {
-            $cart->cartitem = array($cartItemInfo);
-            $cart->purchased = false;
+            $cart->ownCartItem = array($cartItemInfo);
          }
          else
          {
-             $cart->cartitem[] = $cartItemInfo;
+             $cart->ownCartItem[] = $cartItemInfo;
          }
-
+         R::store($cart);
      }
 
     public function getCart($id)
     {
-        return $cart = R::load('cart',$id);
+        $cart = R::load('cart',$id);
+        return $cart;
     }
+
+    public function getCartItems($cartId)
+    {
+        $cart = $this->getCart($cartId);
+
+        $cartItems = $cart->ownCartItem;
+
+        return $cartItems;
+    }
+
+
 
 
 

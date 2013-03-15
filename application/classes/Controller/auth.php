@@ -32,6 +32,7 @@ class Controller_Auth extends Controller_Kotwig
 			{
 				$session = Session::instance();
 				$session->set('user_name', $customer->name);
+                $session->set('user_email', $customer->email);
                 $session->set('user_role', $customer->role);
 				$this->template->loginError = '';
                 if($customer->role == 'user')
@@ -50,8 +51,6 @@ class Controller_Auth extends Controller_Kotwig
 			$this->template->set_filename('auth/index');
 			$this->template->loginError = 'Username does not exist!';
 		}
-
-		
 	}
 
 
@@ -63,6 +62,7 @@ class Controller_Auth extends Controller_Kotwig
 	{
 		$session = Session::instance();
 		$session->delete('user_name');
+        $session->delete('user_email');
         $session->delete('user_role');
 		$this->redirect('/');
 	}	

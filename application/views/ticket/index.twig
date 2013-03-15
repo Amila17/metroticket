@@ -1,72 +1,82 @@
 {% extends "base_layout.twig" %} 
 {% block content %}
-<head>
-<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" /> -->
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="/resources/demos/external/jquery.mousewheel.js"></script>
-<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-<!-- <link rel="stylesheet" href="/resources/demos/style.css" /> -->
-</head>
- <body>
-      <form name="formTicket" class="form-horizontal" method="POST" action="./purchaseTicket">
-	      <div class="control-group">
-			 	<label class="control-label" for="inputZone">Zone Type</label>
-			 	<div class="controls">
-				<select id="cmbxZoneType" name="cmbxZoneType" onchange="calculateFare()" required>
-					{% for zone in zoneTypes %}
-					<option value=[{{ zone.type|e }},{{ zone.price|e }}]>{{ zone.type|e }}</option>
-					{% endfor %}
-				</select>
-				</div>
-		  </div>
-		  <div class="control-group">
-			 	<label class="control-label" for="inputTicketType">Ticket Type</label>
-		<div class="controls">
-				<select id="cmbxTicketType" name="cmbxTicketType" onchange="calculateFare()" required>
-					{% for ticketType in ticketTypes %}
-					<option value=[{{ ticketType.name }},{{ ticketType.price }}]>{{ ticketType.name|e }}</option>
-					{% endfor %}
-				</select>
-				</div>
-			</div>
-			 <div class="control-group">
-		 		<label class="control-label" for="inputNoOfTickets">No of Tickets</label>
-			<div class="controls">
-				<input class="input-mini" id="noOfTickets" type="number" min="0" max="20" value="0" name="noOfTickets" required/>
-				</div>
-			</div>
-			 <div class="control-group">
-			 	<label class="control-label" for="inputDate">Travel Date</label>
-			 	<div class="controls">
-				<input class="input-small" type="text" id="datepicker" name="travelDate" onfocus="calculateFare()" required/>
-				</div>
-			</div>
-          <div class="control-group">
-              <label class="control-label" for="fare">Travel Fare</label>
-              <div class="controls">
-                  <input class="input-medium" type="text" id="fare" name="travelFare" disabled="true"/>
-              </div>
-          </div>
-	<div class="form-actions">
-		 	 <button class="btn btn-large btn-primary" type="submit" onclick="calculateFare()">Add To Basket</button>
-	</div>
-</form>
-</body>
- <script>
-  $(function() {
-    $( "#datepicker" ).datepicker();
-  });
-  </script>
-  <script>
-      function calculateFare()
-      {
-          var priceElement = document.getElementById("fare");
-          //priceElement.value = value;
-          var zoneElement = document.getElementById("cmbxZoneType").value.split(",");
-          var ticketElement = document.getElementById("cmbxTicketType").value.split(",");
-          var noOfTicketValue = document.getElementById("noOfTickets").value;
+    <head>
+        <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" /> -->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        {#<script src="/resources/demos/external/jquery.mousewheel.js"></script>#}
+        <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+        <!-- <link rel="stylesheet" href="/resources/demos/style.css" /> -->
+    </head>
+    <body>
+    <form name="formTicket" class="form-horizontal" method="POST" action="{{ prefix }}/cart/addToCart">
+        <div class="control-group">
+            <label class="control-label" for="inputZone">Zone Type</label>
+            <div class="controls">
+                <select id="cmbxZoneType" name="cmbxZoneType" onchange="calculateFare()" required>
+                    {% for zone in zoneTypes %}
+                        <option value="{{ zone.type|e }},{{ zone.price|e }}">{{ zone.type|e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputTicketType">Ticket Type</label>
+            <div class="controls">
+                <select id="cmbxTicketType" name="cmbxTicketType" onchange="calculateFare()" required>
+                    {% for ticketType in ticketTypes %}
+                        <option value="{{ ticketType.name }},{{ ticketType.price }}">{{ ticketType.name|e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputNoOfTickets">No of Tickets</label>
+            <div class="controls">
+                <input class="input-mini" id="noOfTickets" type="number" min="0" max="20" value="0" name="noOfTickets" required/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputDate">Travel Date</label>
+            <div class="controls">
+                <input class="input-small datepicker" type="text" id="datepicker" name="travelDate" onfocus="calculateFare()" required/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="fare">Travel Fare</label>
+            <div class="controls">
+                <input class="input-medium" type="text" id="txtFare" name="travelFare" disabled="true"/>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-large btn-primary" id="btnSubmit" type="submit" onclick="calculateFare()">Add To Basket</button>
+        </div>
+    </form>
+    </body>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+    <script>
+        $(function()
+        {
+            $('#btnSubmit').on('click', function()
+            {
+                $('#txtFare').removeAttr('disabled');
+            });
+        });
+        $('.datepicker').datepicker
+        ({
+            format: 'mm-dd-yyyy'
+        });
+    </script>
+    <script>
+        function calculateFare()
+        {
+            var priceElement = document.getElementById("txtFare");
+            //priceElement.value = value;
+            var zoneElement = document.getElementById("cmbxZoneType").value.split(",");
+            var ticketElement = document.getElementById("cmbxTicketType").value.split(",");
+            var noOfTicketValue = document.getElementById("noOfTickets").value;
 
-          priceElement.value = parseInt(zoneElement[1]) + parseInt(ticketElement[1]) * parseInt(noOfTicketValue);
-      }
-  </script>
+            priceElement.value = parseInt(zoneElement[1]) + parseInt(ticketElement[1]) * parseInt(noOfTicketValue);
+        }
+    </script>
 {% endblock %}

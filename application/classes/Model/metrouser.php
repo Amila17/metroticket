@@ -3,17 +3,16 @@
 class Model_MetroUser extends Redbean
 {
 	public function addUser($name, $email, $password, $role)
-	{	
+	{
+        $modelCart = new Model_CartInfo();
+        $cart = $modelCart->createCart();
+
 		$customer = R::dispense('customer');
 		$customer->name = $name;
 		$customer->email = $email;
 		$customer->password = $password;
         $customer->role = $role;
-
-        $modelCart = new Model_CartInfo();
-        $cart = $modelCart->createCart();
-
-        $customer->usercart = array($cart);
+        $customer->cartid = $cart->id;
 		R::store($customer);
 	}
 	
@@ -36,4 +35,11 @@ class Model_MetroUser extends Redbean
 		else
 			return true;
 	}
+
+    public function getUserCartId($userEmail)
+    {
+        $customer = $this->getUser($userEmail);
+
+        return $customer->cardid;
+    }
 }

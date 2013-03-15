@@ -1,0 +1,31 @@
+{% extends "base_layout.twig" %}
+{% block content %}
+
+    <div class="bs-docs-example">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Ticket Description</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set cartTotal = '0' %}
+            {% for cartItem in cartItems %}
+                <tr>
+                    <td>{{ cartItem.TicketDesc }}</td>
+                    <td>{{ cartItem.Quantity }}</td>
+                    <td>{{ cartItem.Amount }}</td>
+                    <td>{{ cartItem.Quantity * cartItem.Amount }}</td>
+                   {# {% set cartTotal = "#{cartTotal ~ cartItem.Quantity * cartItem.Amount}" %}#}
+                    {% set cartTotal = cartTotal + (cartItem.Quantity * cartItem.Amount) %}
+                </tr>
+            {% endfor %}
+            <td>{{ cartTotal }}</td>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
