@@ -12,6 +12,7 @@
         <!-- Le styles -->
         <link href="{{ prefix }}/assets/css/bootstrap.css" rel="stylesheet">
         <link href="{{ prefix }}/assets/css/bootstrap-responsive.css" rel="stylesheet">
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <style type="text/css">
             {% block style %}
             body {
@@ -49,12 +50,13 @@
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li><a href="/metroticket"><i class="icon-home"> </i>Home</a></li>
+                    <li><a href="{{ prefix }}/index/ticket"><i class="icon-credit-card"> </i>Ticket</a></li>
                     <li><a href="{{ prefix }}/index/aboutUs"><i class="icon-book"> </i>About</a></li>
                     <li><a href="{{ prefix }}/index/contact"><i class="icon-envelope"> </i>Contact</a></li>
-                    <li><a href="{{ prefix }}/index/ticket"><i class="icon-credit-card"> </i>Ticket</a></li>
                     <li><a href="{{ prefix }}/cart/index"><i class="icon-shopping-cart"> </i>Cart</a></li>
-                    <li><a href="{{ prefix }}/auth/index"><i class="icon-lock"> </i>Login</a></li>
-                    <li><a href="{{ prefix }}/auth/userLogout"><i class="icon-unlock"> </i>Logout</a></li>
+                    <li><a class="offset4" id="userLogin"  href="{{ prefix }}/auth/index"><i class="icon-lock"> </i>Login</a></li>
+                    <li><a id="userLogout" href="{{ prefix }}/auth/userLogout"><i class="icon-unlock"> </i>Logout</a></li>
+                    <li><p class="offset2 navbar-text pull-right" id="userEmail"> Logged in as {{ userEmail }} </p></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -84,7 +86,6 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css"/>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="{{ prefix }}/assets/js/jquery.js"></script>
 <script src="{{ prefix }}/assets/js/bootstrap-transition.js"></script>
 <script src="{{ prefix }}/assets/js/bootstrap-alert.js"></script>
@@ -100,4 +101,17 @@
 <script src="{{ prefix }}/assets/js/bootstrap-typeahead.js"></script>
 
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        {% if userEmail is null %}
+            $('#userEmail').hide();
+            $('#userLogout').hide();
+        {% else %}
+            $('#userLogin').hide();
+        {% endif %}
+    });
+</script>
+
+
 </html>

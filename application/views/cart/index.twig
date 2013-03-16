@@ -1,6 +1,7 @@
 {% extends "base_layout.twig" %}
 {% block content %}
-
+    <body>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <div class="bs-docs-example">
         <table class="table table-bordered">
             <thead>
@@ -9,6 +10,7 @@
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Total</th>
+                <th>Remove</th>
             </tr>
             </thead>
             <tbody>
@@ -19,13 +21,66 @@
                     <td>{{ cartItem.Quantity }}</td>
                     <td>{{ cartItem.Amount }}</td>
                     <td>{{ cartItem.Quantity * cartItem.Amount }}</td>
-                   {# {% set cartTotal = "#{cartTotal ~ cartItem.Quantity * cartItem.Amount}" %}#}
+                    <td><button value="{{ cartItem.CartItemID }}" id="btnDelete" class="btn btn-danger">
+                            <i class="icon-trash icon-large"></i> Delete</button>
+                        <div id="loadingSpinner" hidden="true">
+                            <i class="icon-spinner icon-spin icon-2x pull-left"></i>
+                        </div>
+                            </td>
+
                     {% set cartTotal = cartTotal + (cartItem.Quantity * cartItem.Amount) %}
                 </tr>
             {% endfor %}
-            <td>{{ cartTotal }}</td>
+            <tr>
+                <th colspan="3">Cart Total</th>
+                <td colspan="2">{{ cartTotal }}</td>
+            </tr>
             </tbody>
         </table>
     </div>
+    <div class="offset4 control-group error">
+        <span class="label label-important">{{ itemError }}</span>
+    </div>
+    <div class="span3 offset10">
+        <button id="btnCheckout" class="btn btn-success btn-large"><i class="icon-shopping-cart icon-large"></i> Checkout</button>
+    </div>
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Modal header</h3>
+        </div>
+        <div class="modal-body">
+            <p>One fine body…</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+    </body>
+    <script type="text/javascript" src="/resources/events.js"></script>
+    <script type="text/javascript">
+        $('#btnDelete').on('click', function() {
+            $.ajax({
+                type: "POST",
+                url: "{{ prefix }}/ajax/removeCartItem",
+                data: { cartItemId: $("#btnDelete").val()},
+                success: function(){
+                    location.reload();
+                }
+            });
+            return false;
+        });
 
+        $('#btnCheckout').on('click', function(){
+            $ajax({
+                type: "POST",
+                url: "{{ prefix }}/ajax/checkout",
+                data: { cartItems: {{ cartItems }}},
+                success: function(){
+
+                }
+            })
+        })
+    </script>
 {% endblock %}

@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Ticket extends Controller_Kotwig
+class Controller_Ticket extends Controller_Base
 {
 	public function action_index()
 	{
@@ -33,12 +33,7 @@ class Controller_Ticket extends Controller_Kotwig
 	{
 		
 	}
-/*
-	public function action_purchaseTicket()
-	{
-        $_SESSION = $_POST;
-		$this->redirect('cart/addToCart');
-	}*/
+
 	
 	public function action_ticketMaintenance()
 	{

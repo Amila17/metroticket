@@ -20,6 +20,13 @@ class Model_CartItemInfo extends Redbean
         $cart->addCartItem($storedCartItem, $user);
     }
 
+    public function removeItem($cartItemID)
+    {
+        $cartItem = R::findOne('cartitem', ' CartItemID = :cartItemID ', array( ':cartItemID'=>$cartItemID ));
+
+        R::trash($cartItem);
+    }
+
 
 
 

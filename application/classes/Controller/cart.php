@@ -1,10 +1,17 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Cart extends Controller_Kotwig
+class Controller_Cart extends Controller_Base
 {
     public function action_index()
     {
-        $this->template->cartItems =  $this->action_getCartItems();
+        $cartItems = $this->action_getCartItems();
+
+        $this->template->cartItems =  $cartItems;
+
+        if(is_null($cartItems))
+        {
+            $this->template->itemError = "Please log in to view your shopping cart!";
+        }
     }
 
 
@@ -32,24 +39,23 @@ class Controller_Cart extends Controller_Kotwig
 
         $this->redirect('ticket/index');
 	}
-	
-	public function action_removeFromCart()
-	{
-		
-	}
-	
+
 	public function action_getCartItems()
 	{
 		$modelUser = new Model_MetroUser();
 
         $session = Session::instance();
         $userMail = $session->get('user_email');
+        $cartItems = null;
 
+        if(!is_null($userMail))
+        {
         $user = $modelUser->getUser($userMail);
 
         $modelCart = new Model_CartInfo();
 
         $cartItems = $modelCart->getCartItems($user->cartid);
+        }
 
         return $cartItems;
 	}

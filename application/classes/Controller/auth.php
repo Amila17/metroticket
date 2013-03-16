@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Auth extends Controller_Kotwig
+class Controller_Auth extends Controller_Base
 {	
 	public function action_index()
 	{
@@ -35,6 +35,7 @@ class Controller_Auth extends Controller_Kotwig
                 $session->set('user_email', $customer->email);
                 $session->set('user_role', $customer->role);
 				$this->template->loginError = '';
+
                 if($customer->role == 'user')
 				    $this->redirect('ticket/index');//$this->template->set_filename('ticket/index');
                 else
