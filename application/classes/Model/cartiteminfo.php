@@ -11,7 +11,7 @@ class Model_CartItemInfo extends Redbean
         $cartItem->Quantity = $quantity;
         $cartItem->Amount = $amount;
         $cartItem->TicketDesc = $ticketDesc;
-        $cartItem->purhcased = false;
+        $cartItem->purchased = false;
 
         $id = R::store($cartItem);
         $storedCartItem = R::load('cartitem',$id);
@@ -25,6 +25,22 @@ class Model_CartItemInfo extends Redbean
         $cartItem = R::findOne('cartitem', ' CartItemID = :cartItemID ', array( ':cartItemID'=>$cartItemID ));
 
         R::trash($cartItem);
+    }
+
+    public function purchaseItem($CartItemID)
+    {
+        $cartItem = R::findOne('cartitem', ' CartItemID = :cartItemID ', array( ':cartItemID'=>$CartItemID ));
+
+        $cartItem->purchased = true;
+
+        R::store($cartItem);
+    }
+
+    public function getItems($CartItemID)
+    {
+        $cartItem = R::findOne('cartitem', ' CartItemID = :cartItemID ', array( ':cartItemID'=>$CartItemID ));
+
+        return $cartItem;
     }
 
 

@@ -15,8 +15,8 @@ class Controller_Cart extends Controller_Base
     }
 
 
-	public function action_addToCart()
-	{
+    public function action_addToCart()
+    {
         $zoneType = $this->request->post('cmbxZoneType');
         $zoneType = explode(",",$zoneType);
         $ticketType = $this->request->post('cmbxTicketType');
@@ -30,33 +30,39 @@ class Controller_Cart extends Controller_Base
         $modelTicket = new Model_TicketInfo();
         $ticket = $modelTicket->createTicket($zoneType[0],$ticketType[0],$travelDate,$ticketCode->getTimestamp());
 
-        $session = Session::instance();
-        $userMail = $session->get('user_email');
+        $authManager = new Manager_AuthManager();
+        $userMail = $authManager->getSessionUserEmail();
         $modelUser = new Model_MetroUser();
         $user = $modelUser->getUser($userMail);
         $modelCartItem = new Model_CartItemInfo();
         $modelCartItem->addItem($ticket,$noOfTickets,$ticketPrice,$ticketDesc,$user);
 
         $this->redirect('ticket/index');
-	}
+    }
 
-	public function action_getCartItems()
-	{
-		$modelUser = new Model_MetroUser();
+    public function action_getCartItems()
+    {
+        $modelUser = new Model_MetroUser();
 
-        $session = Session::instance();
-        $userMail = $session->get('user_email');
+        $authManager = new Manager_AuthManager();
+        $userMail = $authManager->getSessionUserEmail();
         $cartItems = null;
+        $cartItemsFiltered = array();
 
         if(!is_null($userMail))
         {
-        $user = $modelUser->getUser($userMail);
+            $user = $modelUser->getUser($userMail);
 
-        $modelCart = new Model_CartInfo();
+            $modelCart = new Model_CartInfo();
 
-        $cartItems = $modelCart->getCartItems($user->cartid);
+            $cartItems = $modelCart->getCartItems($user->cartid);
+
+            foreach($cartItems as $cartItem)
+            {
+                if($cartItem->purchased == '0')
+                    array_push($cartItemsFiltered, $cartItem);
+            }
         }
-
-        return $cartItems;
-	}
+        return $cartItemsFiltered;
+    }
 }

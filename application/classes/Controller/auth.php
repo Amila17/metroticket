@@ -1,43 +1,37 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Auth extends Controller_Base
-{	
+{
 	public function action_index()
 	{
-        $session = Session::instance();
-        $user = $session->get('user_name');
-        if(!isset($user))
-        {
-            $this->template->set_filename('auth/index');
-            //$this->redirect('auth/index');
-        }
-        else
-        {
-            $this->redirect('ticket/index');
-        }
+        $authManager = new Manager_AuthManager();
 
+        if(!$authManager->isLoggedIn())
+            $this->template->set_filename('auth/index');
+        else
+            $this->redirect('ticket/index');
 	}
 	
 	public function action_userLogin()
-	{		
+	{
+        $authManager = new Manager_AuthManager();
+
 		$userEmail = $this->request->post('inputEmail');
 		$userPassword = $this->request->post('inputPassword');
 		
 		$modelvar = new Model_MetroUser();
 		$customer = $modelvar->getUser($userEmail);
+
 		if($customer != null)
 		{
 			$storedPassword = $customer->password;			
-			if(crypt($userPassword, $storedPassword) == $storedPassword)
+			if($authManager->authenticateUser($userPassword, $storedPassword))
 			{
-				$session = Session::instance();
-				$session->set('user_name', $customer->name);
-                $session->set('user_email', $customer->email);
-                $session->set('user_role', $customer->role);
+                $authManager->setUserSession($customer->name,$customer->role,$customer->email);
 				$this->template->loginError = '';
 
                 if($customer->role == 'user')
-				    $this->redirect('ticket/index');//$this->template->set_filename('ticket/index');
+				    $this->redirect('ticket/index');
                 else
                     $this->redirect('admin/index');
 			}
@@ -61,10 +55,8 @@ class Controller_Auth extends Controller_Base
     }
 	public function action_userLogout()
 	{
-		$session = Session::instance();
-		$session->delete('user_name');
-        $session->delete('user_email');
-        $session->delete('user_role');
+		$authManager = new Manager_AuthManager();
+        $authManager->destroyUserSession();
 		$this->redirect('/');
 	}	
 }

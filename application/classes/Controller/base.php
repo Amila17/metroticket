@@ -4,8 +4,8 @@ class Controller_Base extends Controller_Kotwig
 {
     public function after()
     {
-        $session = Session::instance();
-        $this->template->userEmail = $session->get('user_email');
+        $authManager = new Manager_AuthManager();
+        $this->template->userEmail = $authManager->getSessionUserEmail();
 
         parent::after();
     }

@@ -19,7 +19,7 @@ class Controller_Ajax extends Controller
     {
         $cartItemId = $this->request->post('cartItemId');
 
-        echo('cartItemId'.$cartItemId);
+        //echo('cartItemId'.$cartItemId);
 
         $modelCartItem = new Model_CartItemInfo();
         $modelCartItem->removeItem($cartItemId);
@@ -27,9 +27,20 @@ class Controller_Ajax extends Controller
         $this->redirect('cart/index');
     }
 
-    public function action_purchase()
+    public function action_purchaseCartItems()
     {
+        $cartItems = $this->request->post('itemList');
+        print_r($cartItems);
+        $cartIds = explode("_", $cartItems);
+        $modelCartItems = new Model_CartItemInfo();
 
+        for($i = 0; $i<count($cartIds)-1; $i++)
+            $modelCartItems->purchaseItem($cartIds[$i]);
+
+        //Need to redirect to print ticket page
+        $authManager = new Manager_AuthManager();
+        $authManager->addValueToSession('cartItemIds',$cartIds);
+        $this->redirect('ticket/print');
     }
 
 }

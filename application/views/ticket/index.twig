@@ -1,11 +1,8 @@
 {% extends "base_layout.twig" %} 
 {% block content %}
     <head>
-        <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" /> -->
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        {#<script src="/resources/demos/external/jquery.mousewheel.js"></script>#}
         <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-        <!-- <link rel="stylesheet" href="/resources/demos/style.css" /> -->
     </head>
     <body>
     <form name="formTicket" class="form-horizontal" method="POST" action="{{ prefix }}/cart/addToCart">
@@ -71,7 +68,6 @@
         function calculateFare()
         {
             var priceElement = document.getElementById("txtFare");
-            //priceElement.value = value;
             var zoneElement = document.getElementById("cmbxZoneType").value.split(",");
             var ticketElement = document.getElementById("cmbxTicketType").value.split(",");
             var noOfTicketValue = document.getElementById("noOfTickets").value;
