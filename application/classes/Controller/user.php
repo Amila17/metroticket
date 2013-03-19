@@ -2,18 +2,12 @@
 
 class Controller_User extends Controller_Base
 {
+    //This class handles user requests
 	public function action_index()
 	{
-/* 		$this->template->content = View::factory('user/info')
-		->bind('user', $user); */
-		
-/* 		$user = Auth::instance()->get_user();
-		
-		if(!$user)
-		{
-			Request::current()->redirect('auth/index');
-		} */
 	}
+
+    //This method adds a user to the system.
 	public function action_addUser()
 	{
 		$userName = $this->request->post('inputName');
@@ -27,17 +21,16 @@ class Controller_User extends Controller_Base
 		if($userExists == FALSE)
 		{
 			$modelvar->addUser($userName, $userEmail, crypt($userPassword), $role);
-			//$this->template->set_filename('auth/index');
             $this->redirect('auth/index');
 		}
 		else
 		{
-			//$this->template->set_filename('user/index');
             $this->redirect('user/index');
 			$this->template->createError = 'Username Exists!';
 		}
 	}
 
+    //This method adds a admin to the system.
     public function action_addAdmin()
     {
         $modelvar = new Model_MetroUser();

@@ -2,122 +2,122 @@
 
 
 {% block content %}
-<head>
+    <body onload="formOnload()">
+    <h2>Zone Administration</h2>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-</head>
-<body onload="formOnload()">
-<h1>
-<div class="btn-group" data-toggle="buttons-radio">
-  		<button type="button" name="addButton" class="btn btn-medium btn-primary"
-                  onclick="enableButtonClick();addAction('A');addValue();">Add Zone</button>
-  		<button type="button" name="removeButton" class="btn btn-medium btn-primary"
-                  onclick="enableButtonClick();addAction('R');removeValue();">Remove Zone</button>
-  		<button type="button" name="editButton" class="btn btn-medium btn-primary"
-                  onclick="enableButtonClick();addAction('E');amendValue();">Edit Zone</button>
-	</div>
-</h1>
-  	 <form name="zoneManager" method="post" action="./zoneMaintenance">
-			
-			<div class="control-group" id="divTextZone">
-		 		<label class="control-label" for="zoneType">Zone Type</label>
-			    <div class="controls">
-				    <input class="input" type="text" id="zoneType" name="txtZoneType" required/>
-				</div>
-			</div>
 
-			<div class="control-group" id="cmbZoneType">
-		 		<label class="control-label" for="zoneType">Zone Type</label>
-				<div class="controls">
-					<select name="cmbZoneType">
-					{% for zone in zones %}
-					<option value={{ zone.type }}>{{ zone.type|e }}</option>
-					{% endfor %}
-					</select>
-				</div>
-			</div>
-			
-			<div class="control-group" id="txtZonePrice">
-		 		<label class="control-label" for="zonePrice">Zone Price</label>
-				<div class="controls">
-					<input class="input" type="text" id="zonePrice" name="txtZonePrice" required/>
-				</div>
-			</div>
+    <div class="btn-group" data-toggle="buttons-radio">
+        <button type="button" name="addButton" class="btn btn-medium btn-primary"
+                onclick="enableButtonClick();addAction('A');addValue();">Add Zone</button>
+        <button type="button" name="removeButton" class="btn btn-medium btn-primary"
+                onclick="enableButtonClick();addAction('R');removeValue();">Remove Zone</button>
+        <button type="button" name="editButton" class="btn btn-medium btn-primary"
+                onclick="enableButtonClick();addAction('E');amendValue();">Edit Zone</button>
+    </div>
 
-           <div class="control-group" id="btnSubmit">
-    		<div class="form-actions">
-   					<button type="submit" value="submit" class="btn btn-large btn-primary">Confirm</button>
-   			</div>
- 				 <input type="hidden" id="txtAction" name="txtAction">
-             </div>
-			</form>
-</body>
-<script type="text/javascript">
-function addAction(actionType)
-{
-	var elem = document.getElementById("txtAction");
-	elem.value = actionType;
-}
-</script>
-<script>
-	function formOnload()
-	{
-		disableField(document.forms["zoneManager"].txtZoneType);
-		disableField(document.forms["zoneManager"].txtZonePrice);
-		hideControl(document.getElementById('cmbZoneType'));
-	}
-	function enableButtonClick()
-	{
-		enableField(document.forms["zoneManager"].txtZoneType);
-		enableField(document.forms["zoneManager"].txtZonePrice);
-	}
-	function amendValue()
-	{
-		hideControl(document.getElementById('divTextZone'));
-        unhideControl(document.getElementById('txtZonePrice'));
-		unhideControl(document.getElementById('cmbZoneType'));
-        addProperty('#zoneType','required',false);
-        addProperty('#zonePrice','required',true);
-	}
-	function addValue()
-	{
-		hideControl(document.getElementById('cmbZoneType'));
-        unhideControl(document.getElementById('txtZonePrice'));
-		unhideControl(document.getElementById('divTextZone'));
-        addProperty('#zoneType','required',true);
-        addProperty('#zonePrice','required',true);
-	}
-    function removeValue()
-    {
-        unhideControl(document.getElementById('cmbZoneType'));
-        hideControl(document.getElementById('txtZonePrice'));
-        hideControl(document.getElementById('divTextZone'));
-        addProperty('#zoneType','required',false);
-        addProperty('#zonePrice','required',false);
-    }
-    function addProperty(field, property, value)
-    {
-        $(field).prop(property, value);
-    }
-	function disableField(myField)
-	{
-		myField.disabled = true;
-		return true;
-	}
-	function enableField(myField)
-	{
-		myField.disabled = false;
-		return true;
-	}
-	function hideControl(myControl)
-	{
-		myControl.style.display="none";
-		return true;
-	}
-	function unhideControl(myControl)
-	{
-        myControl.style.display= "";
-		return true;
-	}
-</script>
+    <form name="zoneManager" method="post" action="./zoneMaintenance">
+        <div class="control-group" id="divTextZone">
+            <label class="control-label" for="zoneType">Zone Type</label>
+            <div class="controls">
+                <input class="input" type="text" id="zoneType" name="txtZoneType" required/>
+            </div>
+        </div>
+
+        <div class="control-group" id="cmbZoneType">
+            <label class="control-label" for="zoneType">Zone Type</label>
+            <div class="controls">
+                <select name="cmbZoneType">
+                    {% for zone in zones %}
+                        <option value={{ zone.type }}>{{ zone.type|e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group" id="txtZonePrice">
+            <label class="control-label" for="zonePrice">Zone Price</label>
+            <div class="controls">
+                <input class="input" type="text" id="zonePrice" name="txtZonePrice" required/>
+            </div>
+        </div>
+
+        <div class="control-group" id="btnSubmit">
+            <div class="form-actions">
+                <button type="submit" value="submit" class="btn btn-large btn-primary">Confirm</button>
+            </div>
+            <input type="hidden" id="txtAction" name="txtAction">
+        </div>
+    </form>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    </body>
+    <script type="text/javascript">
+        function addAction(actionType)
+        {
+            var elem = document.getElementById("txtAction");
+            elem.value = actionType;
+        }
+    </script>
+    <script>
+        function formOnload()
+        {
+            disableField(document.forms["zoneManager"].txtZoneType);
+            disableField(document.forms["zoneManager"].txtZonePrice);
+            hideControl(document.getElementById('cmbZoneType'));
+        }
+        function enableButtonClick()
+        {
+            enableField(document.forms["zoneManager"].txtZoneType);
+            enableField(document.forms["zoneManager"].txtZonePrice);
+        }
+        function amendValue()
+        {
+            hideControl(document.getElementById('divTextZone'));
+            unhideControl(document.getElementById('txtZonePrice'));
+            unhideControl(document.getElementById('cmbZoneType'));
+            addProperty('#zoneType','required',false);
+            addProperty('#zonePrice','required',true);
+        }
+        function addValue()
+        {
+            hideControl(document.getElementById('cmbZoneType'));
+            unhideControl(document.getElementById('txtZonePrice'));
+            unhideControl(document.getElementById('divTextZone'));
+            addProperty('#zoneType','required',true);
+            addProperty('#zonePrice','required',true);
+        }
+        function removeValue()
+        {
+            unhideControl(document.getElementById('cmbZoneType'));
+            hideControl(document.getElementById('txtZonePrice'));
+            hideControl(document.getElementById('divTextZone'));
+            addProperty('#zoneType','required',false);
+            addProperty('#zonePrice','required',false);
+        }
+        function addProperty(field, property, value)
+        {
+            $(field).prop(property, value);
+        }
+        function disableField(myField)
+        {
+            myField.disabled = true;
+            return true;
+        }
+        function enableField(myField)
+        {
+            myField.disabled = false;
+            return true;
+        }
+        function hideControl(myControl)
+        {
+            myControl.style.display="none";
+            return true;
+        }
+        function unhideControl(myControl)
+        {
+            myControl.style.display= "";
+            return true;
+        }
+    </script>
 
 {% endblock content %}

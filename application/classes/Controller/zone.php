@@ -2,6 +2,8 @@
 
 class Controller_Zone extends Controller_Base
 {
+    //This class is used for Zone administration.
+
     public function action_index()
     {
         $modelZone = new Model_ZoneInfo();
@@ -9,6 +11,7 @@ class Controller_Zone extends Controller_Base
         $this->template->zones = $zones;
     }
 
+    //This method is used for zone maintenance.
 	public function action_zoneMaintenance()
 	{
         $zoneTxtType = $this->request->post('txtZoneType');

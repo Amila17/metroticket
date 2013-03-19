@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     {% set prefix = '/metroticket' %}
     {% block head %}
@@ -66,17 +66,18 @@
 <div class="container">
 
     <div id="content">{% block content %}{% endblock %}</div>
+</div>
+<div class="container"
+<div class="footer">
 
-    <div class="footer">
+    {% block footer %}
+        </br></br<p>&copy; Copyright 2013 by <a href="http://localhost/metroticket/">MetroTicket</a>.</p>
+    {% endblock %}
 
-        {% block footer %}
-            <p>&copy; Copyright 2013 by <a href="http://localhost/metroticket/">MetroTicket</a>.</p>
-        {% endblock %}
+</div>
+</div>
 
-    </div>
-
-
-</div> <!-- /container -->
+<!-- /container -->
 
 
 
@@ -90,28 +91,15 @@
 <script src="{{ prefix }}/assets/js/bootstrap.js"></script>
 <script src="{{ prefix }}/assets/js/bootstrap.min.js"></script>
 <script src="{{ prefix }}/assets/js/jquery.js"></script>
-{#<script src="{{ prefix }}/assets/js/bootstrap-transition.js"></script>
-<script src="{{ prefix }}/assets/js/bootstrap-alert.js"></script>
-<script src="{{ prefix }}/assets/js/bootstrap-modal.js"></script>
-<script src="{{ prefix }}/assets/js/bootstrap-dropdown.js"></script>
-<script src="{{ prefix }}/assets/js/bootstrap-scrollspy.js"></script>
-<script src="{{ prefix }}/assets/js/bootstrap-tab.js"></script>
-<script src="{{ prefix }}/assets/js/bootstrap-tooltip.js"></script>
-<script src="{{ prefix }}/assets/js/bootstrap-popover.js"></script>
-<script src="{{ prefix }}/assets/js/bootstrap-button.js"></script>
-<script src="{{ prefix }}/assets/js/bootstrap-collapse.js"></script>
-<script src="{{ prefix }}/assets/js/bootstrap-carousel.js"></script>
-<script src="{{ prefix }}/assets/js/bootstrap-typeahead.js"></script>#}
-
 </body>
 
 <script type="text/javascript">
     $(document).ready(function(){
         {% if userEmail is null %}
-            $('#userEmail').hide();
-            $('#userLogout').hide();
+        $('#userEmail').hide();
+        $('#userLogout').hide();
         {% else %}
-            $('#userLogin').hide();
+        $('#userLogin').hide();
         {% endif %}
     });
 </script>

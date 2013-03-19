@@ -1,39 +1,13 @@
 {% extends "base_layout.twig" %}
 {% block content %}
-    <style>
-        #container {
-            position:relative;
-        }
-
-        #ticketDate {
-            position: absolute;
-            left: 50px;
-            top: 100px;
-        }
-        #ticketZone {
-            position: absolute;
-            left: 300px;
-            top: 100px;
-        }
-        #ticketPrice {
-            position: absolute;
-            left: 50px;
-            top: 200px;
-        }
-        #ticketType {
-            position: absolute;
-            left: 300px;
-            top: 200px;
-        }
-    </style>
-
+    <h2> Print your ticket(s)</h2>
     {% for cartItem in cartItems %}
-    <div id="container">
+    <div id="container" class="containerTicket">
             <img src="{{ prefix }}/assets/images/Metroticket.jpg" class="img-polaroid">
-            <h4 id="ticketDate">Travel Date: {{ cartItem.traveldate }}</h4>
-            <h4 id="ticketZone">Travel Zone: {{ cartItem.zone }}</h4>
-            <h4 id="ticketType">Ticket Type: {{ cartItem.tickettype }}</h4>
-            <h4 id="ticketPrice">Travel Price: {{ cartItem.Amount }}</h4>
+            <h4 id="ticketDate" class="ticketDate">Travel Date: {{ cartItem.traveldate }}</h4>
+            <h4 id="ticketZone" class="ticketZone">Travel Zone: {{ cartItem.zone }}</h4>
+            <h4 id="ticketType" class="ticketType">Ticket Type: {{ cartItem.tickettype }}</h4>
+            <h4 id="ticketPrice" class="ticketPrice">Travel Price: {{ cartItem.Amount }}</h4>
     </div>
     <br>
     {% endfor %}

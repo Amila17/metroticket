@@ -6156,3 +6156,39 @@ a.badge:focus {
 .affix {
   position: fixed;
 }
+
+.containerTicket {
+    position:relative;
+}
+
+.ticketDate {
+    position: absolute;
+    left: 50px;
+    top: 100px;
+}
+.ticketZone {
+    position: absolute;
+    left: 300px;
+    top: 100px;
+}
+.ticketPrice {
+    position: absolute;
+    left: 50px;
+    top: 200px;
+}
+.ticketType {
+    position: absolute;
+    left: 300px;
+    top: 200px;
+}
+
+.marketing .span4 {
+    text-align: center;
+}
+.marketing h2 {
+    font-weight: normal;
+}
+.marketing .span4 p {
+    margin-left: 10px;
+    margin-right: 10px;
+}

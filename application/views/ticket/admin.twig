@@ -2,123 +2,125 @@
 
 
 {% block content %}
-    <head>
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    </head>
-<body onload="formOnload()">
-<h1> 
-	<div class="btn-group" data-toggle="buttons-radio">
-  		<button type="button" name="addButton" class="btn btn-medium btn-primary"
-                  onclick="enableButtonClick();addAction('A');addValue();">Add Ticket</button>
-  		<button type="button" name="removeButton" class="btn btn-medium btn-primary"
-                  onclick="enableButtonClick();addAction('R');removeValue();">Remove Ticket</button>
-  		<button type="button" name="editButton" class="btn btn-medium btn-primary"
-                  onclick="enableButtonClick();addAction('E');amendValue();">Edit Item</button>
-	</div> 
-</h1>
-  	 <form name="ticketManager" method="post" action="./ticketMaintenance">
-			
-			<div class="control-group" id="divTextTicket">
-		 		<label class="control-label" for="ticketType">Ticket Type</label>
-			<div class="controls">
-				<input class="input" type="text" id="ticketType" name="txtTicketType" required="true"/>
-				</div>
-			</div>
+    <h2>Ticket Administration</h2>
+    <body onload="formOnload()">
 
-			<div class="control-group" id="cmbTicketType">
-		 		<label class="control-label" for="ticketType">Ticket Type</label>
-				<div class="controls">
-					<select name="cmbTicketType">
-					{% for ticket in tickets %}
-					<option value={{ ticket.name }}>{{ ticket.name|e }}</option>
-					{% endfor %}
-					</select>
-				</div>
-			</div>
-			
-			<div class="control-group" id="txtTicketPrice">
-		 		<label class="control-label" for="ticketPrice">Ticket Price</label>
-				<div class="controls">
-					<input class="input" type="text" id="ticketPrice" name="txtTicketPrice" required="true"/>
-				</div>
-			</div>
-			
-    		<div class="form-actions">
-   					<button type="submit" class="btn btn-large btn-primary">Confirm</button>
-   			</div>
+    <div class="btn-group" data-toggle="buttons-radio">
+        <button type="button" name="addButton" class="btn btn-medium btn-primary"
+                onclick="enableButtonClick();addAction('A');addValue();">Add Ticket</button>
 
- 				 <input type="hidden" id="txtAction" name="txtAction">
-			</form>
-</body>
-<script type="text/javascript">
-function addAction(actionType)
-{
-	var elem = document.getElementById("txtAction");
-	elem.value = actionType;
-}
-</script>
-<script>
-	function formOnload()
-	{
-       // addValue();
-		disableField(document.forms["ticketManager"].txtTicketType);
-		disableField(document.forms["ticketManager"].txtTicketPrice);
-		hideControl(document.getElementById('cmbTicketType'));
-	}
-	function enableButtonClick()
-	{
-		enableField(document.forms["ticketManager"].txtTicketType);
-		enableField(document.forms["ticketManager"].txtTicketPrice);
-	}
-	function amendValue()
-	{
-		hideControl(document.getElementById('divTextTicket'));
-        unhideControl(document.getElementById('txtTicketPrice'));
-		unhideControl(document.getElementById('cmbTicketType'));
-        addProperty('#ticketType','required',false);
-        addProperty('#ticketPrice','required',true);
-	}
-	function addValue()
-	{
-		hideControl(document.getElementById('cmbTicketType'));
-        unhideControl(document.getElementById('txtTicketPrice'));
-		unhideControl(document.getElementById('divTextTicket'));
-        addProperty('#ticketType','required',true);
-        addProperty('#ticketPrice','required',true);
-	}
-    function removeValue()
-    {
+        <button type="button" name="removeButton" class="btn btn-medium btn-primary"
+                onclick="enableButtonClick();addAction('R');removeValue();">Remove Ticket</button>
 
-        unhideControl(document.getElementById('cmbTicketType'));
-        hideControl(document.getElementById('txtTicketPrice'));
-        hideControl(document.getElementById('divTextTicket'));
-        addProperty('#ticketType','required',false);
-        addProperty('#ticketPrice','required',false);
-    }
-	function addProperty(field, property, value)
-    {
-        $(field).prop(property, value);
-    }
-	function disableField(myField)
-	{
-		myField.disabled = true;
-		return true;
-	}
-	function enableField(myField)
-	{
-		myField.disabled = false;
-		return true;
-	}
-	function hideControl(myControl)
-	{
-		myControl.style.display="none";
-		return true;
-	}
-	function unhideControl(myControl)
-	{
-        myControl.style.display= "";
-		return true;
-	}
-</script>
+        <button type="button" name="editButton" class="btn btn-medium btn-primary"
+                onclick="enableButtonClick();addAction('E');amendValue();">Edit Item</button>
+    </div>
+
+    <form name="ticketManager" method="post" action="./ticketMaintenance">
+        <div class="control-group" id="divTextTicket">
+            <label class="control-label" for="ticketType">Ticket Type</label>
+            <div class="controls">
+                <input class="input" type="text" id="ticketType" name="txtTicketType" required="true"/>
+            </div>
+        </div>
+
+        <div class="control-group" id="cmbTicketType">
+            <label class="control-label" for="ticketType">Ticket Type</label>
+            <div class="controls">
+                <select name="cmbTicketType">
+                    {% for ticket in tickets %}
+                        <option value={{ ticket.name }}>{{ ticket.name|e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group" id="txtTicketPrice">
+            <label class="control-label" for="ticketPrice">Ticket Price</label>
+            <div class="controls">
+                <input class="input" type="text" id="ticketPrice" name="txtTicketPrice" required="true"/>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-large btn-primary">Confirm</button>
+        </div>
+
+        <input type="hidden" id="txtAction" name="txtAction">
+    </form>
+
+    </body>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+        function addAction(actionType)
+        {
+            var elem = document.getElementById("txtAction");
+            elem.value = actionType;
+        }
+    </script>
+    <script>
+        function formOnload()
+        {
+            // addValue();
+            disableField(document.forms["ticketManager"].txtTicketType);
+            disableField(document.forms["ticketManager"].txtTicketPrice);
+            hideControl(document.getElementById('cmbTicketType'));
+        }
+        function enableButtonClick()
+        {
+            enableField(document.forms["ticketManager"].txtTicketType);
+            enableField(document.forms["ticketManager"].txtTicketPrice);
+        }
+        function amendValue()
+        {
+            hideControl(document.getElementById('divTextTicket'));
+            unhideControl(document.getElementById('txtTicketPrice'));
+            unhideControl(document.getElementById('cmbTicketType'));
+            addProperty('#ticketType','required',false);
+            addProperty('#ticketPrice','required',true);
+        }
+        function addValue()
+        {
+            hideControl(document.getElementById('cmbTicketType'));
+            unhideControl(document.getElementById('txtTicketPrice'));
+            unhideControl(document.getElementById('divTextTicket'));
+            addProperty('#ticketType','required',true);
+            addProperty('#ticketPrice','required',true);
+        }
+        function removeValue()
+        {
+
+            unhideControl(document.getElementById('cmbTicketType'));
+            hideControl(document.getElementById('txtTicketPrice'));
+            hideControl(document.getElementById('divTextTicket'));
+            addProperty('#ticketType','required',false);
+            addProperty('#ticketPrice','required',false);
+        }
+        function addProperty(field, property, value)
+        {
+            $(field).prop(property, value);
+        }
+        function disableField(myField)
+        {
+            myField.disabled = true;
+            return true;
+        }
+        function enableField(myField)
+        {
+            myField.disabled = false;
+            return true;
+        }
+        function hideControl(myControl)
+        {
+            myControl.style.display="none";
+            return true;
+        }
+        function unhideControl(myControl)
+        {
+            myControl.style.display= "";
+            return true;
+        }
+    </script>
 
 {% endblock content %}

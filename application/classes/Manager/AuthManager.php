@@ -2,6 +2,7 @@
 
 class Manager_AuthManager
 {
+    //This class contains the authentication processes and methods used to access the session.
     public function authenticateUser($userPassword, $storedPassword)
     {
         if(crypt($userPassword, $storedPassword) == $storedPassword)
